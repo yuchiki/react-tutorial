@@ -44,7 +44,8 @@ class Game extends React.Component {
                 }
             ],
             stepNumber: 0,
-            xIsNext: true
+            xIsNext: true,
+            isOldToNew: true
         };
     }
 
@@ -109,9 +110,15 @@ class Game extends React.Component {
                     />
                 </div>
                 <div className="game-info">
+                    <label for="orderSwitch">新しい順にする</label>
+                    <input
+                        id="orderSwitch"
+                        type="checkbox"
+                        onChange={()=>this.setState({isOldToNew: !this.state.isOldToNew})}>
+                    </input>
                     <div>{current.place === null ? '' : '(' + (current.place % 3 + 1) + ',' + (Math.floor(current.place / 3) + 1) + ')'}</div>
                     <div>{status}</div>
-                    <ol>{moves}</ol>
+                    <ol>{this.state.isOldToNew? moves : moves.slice().reverse()}</ol>
                 </div>
             </div>
         );
